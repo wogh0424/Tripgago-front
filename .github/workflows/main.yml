@@ -15,7 +15,7 @@ jobs:
         id: docker_meta
         uses: crazy-max/ghaction-docker-meta@v1
         with:
-          images: tripgago/front
+          images: tripgago-front
           tag-semver: |
             {{version}}
             {{major}}.{{minor}}
