@@ -1,25 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+// App.js
+import React, { Component } from 'react';
+import axios from 'axios';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+    state = {
+        userData: '',
+    };
+
+    componentDidMount() {
+        axios.get('/api/users') // 스프링 부트 API 엔드포인트
+            .then(response => {
+                this.setState({ userData: response.data });
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
+
+    render() {
+        return (
+            <div className="App">
+                <h1>React and Spring Boot Axios Test</h1>
+                <p>{this.state.userData}</p>
+            </div>
+        );
+    }
 }
 
 export default App;
