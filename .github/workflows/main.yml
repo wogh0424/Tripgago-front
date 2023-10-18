@@ -37,4 +37,4 @@ jobs:
           file: ./Dockerfile
           platforms: linux/amd64
           push: true
-          labels: ${{ secrets.DOCKERHUB_USERNAME }}/tripgago/front
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/tripgago/front
