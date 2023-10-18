@@ -15,7 +15,7 @@ jobs:
         id: docker_meta
         uses: crazy-max/ghaction-docker-meta@v1
         with:
-          images: tripgago/front
+          images: tripgago-front
           tag-semver: |
             {{version}}
             {{major}}.{{minor}}
@@ -37,5 +37,4 @@ jobs:
           file: ./Dockerfile
           platforms: linux/amd64
           push: true
-          tags: ${{ steps.docker_meta.outputs.tags }}
-          labels: ${{ steps.docker_meta.outputs.labels }}
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/tripgago-front

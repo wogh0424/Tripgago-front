@@ -9,8 +9,8 @@ WORKDIR /app
 COPY package-lock.json ./
 COPY package.json ./
 # Installs all node packages
-RUN npm ci
 
+RUN npm install
 
 # Copies everything over to Docker environment
 COPY . ./
@@ -31,3 +31,4 @@ COPY --from=builder /app/build /usr/share/nginx/html/
 # Containers run nginx with global directives and daemon off
 EXPOSE 3000
 ENTRYPOINT ["nginx", "-g", "daemon off;"]
+CMD ["npm", "run", " start"]
