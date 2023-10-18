@@ -31,3 +31,4 @@ COPY --from=builder /app/build /usr/share/nginx/html/
 # Containers run nginx with global directives and daemon off
 EXPOSE 3000
 ENTRYPOINT ["nginx", "-g", "daemon off;"]
+CMD ["npm", "run", " start"]
