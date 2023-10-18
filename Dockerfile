@@ -10,7 +10,7 @@ COPY package-lock.json ./
 COPY package.json ./
 # Installs all node packages
 
-RUN npm run install
+RUN npm install
 
 # Copies everything over to Docker environment
 COPY . ./
