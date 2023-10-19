@@ -1,36 +1,33 @@
-# Stage 1: Build the React application
-FROM node:14 as builder
+FROM node:14 AS builder
+
+# set working directory
 WORKDIR /app
+
+
+# install app dependencies
+#copies package.json and package-lock.json to Docker environment
 COPY package-lock.json ./
 COPY package.json ./
-RUN npm install
-COPY . .
+# Installs all node packages
+RUN npm ci 
+
+
+# Copies everything over to Docker environment
+COPY . ./
 RUN npm run build
 
-# Stage 2: Serve the React application using Nginx
-# nginx 이미지를 사용합니다. 뒤에 tag가 없으면 latest 를 사용합니다.
-FROM nginx:latest
-
-# root 에 app 폴더를 생성
-RUN mkdir /app
-
-# work dir 고정
-WORKDIR /app
-
-# work dir 에 build 폴더 생성 /app/build
-RUN mkdir ./build
-
-# host pc의 현재경로의 build 폴더를 workdir 의 build 폴더로 복사
-ADD ./build ./build
-
-# nginx 의 default.conf 를 삭제
-RUN rm /etc/nginx/conf.d/default.conf
-
-# host pc 의 nginx.conf 를 아래 경로에 복사
-COPY /config/nginx/default.conf /etc/nginx/default.conf
-
-# 80 포트 오픈
-EXPOSE 80
-
-# container 실행 시 자동으로 실행할 command. nginx 시작함
-CMD ["nginx", "-g", "daemon off;"]
+#Stage 2
+#######################################
+#pull the official nginx:1.19.0 base image
+FROM nginx:1.19.0
+#copies React to the container directory
+# Set working directory to nginx resources directory
+# WORKDIR /usr/share/nginx/html
+COPY config/nginx/default.conf /etc/nginx/conf.d/default.conf
+# Remove default nginx static resources
+RUN rm -rf ./usr/share/nginx/html/*
+# Copies static resources from builder stage
+COPY --from=builder /app/build /usr/share/nginx/html/
+# Containers run nginx with global directives and daemon off
+EXPOSE 3000
+ENTRYPOINT ["nginx", "-g", "daemon off;"]
