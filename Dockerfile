@@ -31,4 +31,4 @@ RUN rm -rf ./usr/share/nginx/html/*
 COPY --from=builder /app/build /usr/share/nginx/html/
 # Containers run nginx with global directives and daemon off
 EXPOSE 3000
-CMD ["npm", "start"]
+ENTRYPOINT ["nginx", "-g", "daemon off;"]
