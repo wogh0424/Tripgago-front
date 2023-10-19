@@ -1,19 +1,13 @@
-FROM node:14 AS builder
+# Step 1: Build the React application
+FROM node:14 as build
 
-# set working directory
 WORKDIR /app
-
-
-# install app dependencies
-#copies package.json and package-lock.json to Docker environment
-COPY package-lock.json ./
-COPY package.json ./
-# Installs all node packages
+COPY package.json package.json
+COPY package-lock.json package-lock.json
 
 RUN npm install
+COPY . .
 
-# Copies everything over to Docker environment
-COPY . ./
 RUN npm run build
 
 #Stage 2
@@ -31,3 +25,18 @@ COPY --from=builder /app/build /usr/share/nginx/html/
 # Containers run nginx with global directives and daemon off
 EXPOSE 3000
 ENTRYPOINT ["nginx", "-g", "daemon off;"]
+
+# Step 2: Serve the React application using Nginx
+FROM nginx:alpine
+
+# Remove the default Nginx configuration
+RUN rm -rf /usr/share/nginx/html/*
+
+# Copy the build files from the previous stage (from /app/build)
+COPY --from=build /app/build /usr/share/nginx/html
+
+# Expose port 80
+EXPOSE 80
+
+# Start Nginx
+CMD ["nginx", "-g", "daemon off;"]
