@@ -5,8 +5,6 @@ WORKDIR /app
 
 COPY package.json .
 RUN npm install 
-RUN npm ci
-
 
 # Copies everything over to Docker environment
 COPY . .
