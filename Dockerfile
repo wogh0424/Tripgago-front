@@ -3,7 +3,7 @@ FROM node:14 as builder
 WORKDIR /app
 COPY package-lock.json ./
 COPY package.json ./
-RUN npm ci
+RUN npm start
 COPY . .
 RUN npm run build
 
