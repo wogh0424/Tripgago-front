@@ -4,6 +4,7 @@ FROM node:16 AS builder
 WORKDIR /app
 
 COPY package.json .
+COPY package-lock.json . 
 RUN npm install 
 
 # Copies everything over to Docker environment
