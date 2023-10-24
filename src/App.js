@@ -61,7 +61,7 @@ class App extends Component {
         return(
             <div>
                 <ColorSchemesExample />
-                <p>배포완료 11</p>
+                <p>배포완료 1111</p>
                 <Example />
             </div>
         )
