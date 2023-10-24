@@ -7,6 +7,8 @@ COPY package.json .
 COPY package-lock.json . 
 RUN npm install .
 RUN npm install react-bootstrap
+RUN npm install react-query
+RUN npm install react-query/devtools
 
 # Copies everything over to Docker environment
 COPY . .
