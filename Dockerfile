@@ -8,6 +8,7 @@ COPY package-lock.json .
 RUN npm install .
 RUN npm install react-bootstrap
 RUN npm install react-query
+RUN npm install @popperjs/core@latest
 
 # Copies everything over to Docker environment
 COPY . .
