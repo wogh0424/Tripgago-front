@@ -1,58 +1,60 @@
 // App.js
 import React, {Component, useEffect, useState} from 'react';
+import 'bootstrap/dist/css/bootstrap.css'
 
 import './App.css'
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Mycomponent from './Navbar'
-import ColorSchemesExample from "./Navbar";
+import HeadBar from "./Navbar";
+import Maincontents from "./Main-content";
 import axios from 'axios';
+import {QueryClient, QueryClientProvider, useQuery} from 'react-query';
 
 
 
+const queryClient = new QueryClient();
 
-function Example() {
-
-    const [userData, setUserData] = useState('');
-
-    useEffect(() => {
-        axios.get('/api/users') // 스프링 부트 API 엔드포인트
-            .then(response => {
-                setUserData(response.data); // 상태 업데이트
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-    }, []);
-
-    const [show, setShow] = useState(false)
-    const handleClose = () => setShow(false)
-    const handleShow = () => setShow(true)
-
+function Apps() {
     return (
-        <>
-            <Button variant="primary" onClick={handleShow}>
-                {userData}
-            </Button>
-
-            <Modal show={show} onHide={handleClose}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Modal heading</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>Woohoo, you are reading this text in a modal!</Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
-                        Close
-                    </Button>
-                    <Button variant="primary" onClick={handleClose}>
-                        Save Changes
-                    </Button>
-                </Modal.Footer>
-            </Modal>
-        </>
+        <QueryClientProvider client={queryClient}>
+        <FetchDataComponent />
+        </QueryClientProvider>
     )
 }
 
+
+function FetchDataComponent() {
+    const { data, error, isLoading } = useQuery('fetchData', async () => {
+        const response = await fetch('/api/users');
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.text();
+    });
+
+    if (isLoading) return <div>Loading...</div>;
+    if (error) return <div>Error: {error.message}</div>;
+
+    return (
+        <div>
+            {data}
+        </div>
+    );
+}
+function IsExpanded() {
+    const [navExpanded, setNavExpanded] = useState(false);
+
+    const toggleNavbar = () => {
+        setNavExpanded(!navExpanded)
+    };
+    return (
+        <>
+        <HeadBar />
+            <Maincontents />
+        </>
+    )
+}
 
 
 class App extends Component {
@@ -60,9 +62,8 @@ class App extends Component {
     render() {
         return(
             <div>
-                <ColorSchemesExample />
-                <p>배포완료 1111</p>
-                <Example />
+                <IsExpanded />
+                <Apps />
             </div>
         )
     }
