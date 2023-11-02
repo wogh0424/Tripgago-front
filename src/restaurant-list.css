@@ -1,0 +1,12 @@
+.row {
+    width: 1500px;
+}
+.row-frame {
+    display: flex;
+    justify-content: center;
+    margin: 60px;
+}
+    #card-size {
+        width: 18rem;
+    }
+
