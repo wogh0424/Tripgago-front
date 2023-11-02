@@ -5,62 +5,25 @@ import './App.css'
 import HeadBar from "./Navbar";
 import Maincontents from "./Main-content";
 import {QueryClient, QueryClientProvider, useQuery} from 'react-query';
-
-
-
-const queryClient = new QueryClient();
-
-function Apps() {
-    return (
-        <QueryClientProvider client={queryClient}>
-        <FetchDataComponent />
-        </QueryClientProvider>
-    )
-}
-
-
-function FetchDataComponent() {
-    const { data, error, isLoading } = useQuery('fetchData', async () => {
-        const response = await fetch('/api/users');
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        return response.text();
-    });
-
-    if (isLoading) return <div>Loading...</div>;
-    if (error) return <div>Error: {error.message}</div>;
-
-    return (
-        <div>
-            {data}
-        </div>
-    );
-}
-function IsExpanded() {
-    const [navExpanded, setNavExpanded] = useState(false);
-
-    const toggleNavbar = () => {
-        setNavExpanded(!navExpanded)
-    };
-    return (
-        <>
-        <HeadBar />
-            <Maincontents />
-        </>
-    )
-}
-
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 
 class App extends Component {
-
     render() {
-        return(
-            <div>
-                <IsExpanded />
-                <Apps />
-            </div>
-        )
+        return (
+            <Router>
+                <div>
+                    {/* 모든페이지에는 HeadBar가 포함 */}
+                    <HeadBar />
+
+                    <Routes>
+                        {/* 메인페이지에는 사진이 포함(페이지별로 분류) */}
+                        <Route path="/" element={<Maincontents />} />
+
+                        <Route path="/GetNaverAPI" />
+                    </Routes>
+                </div>
+            </Router>
+        );
     }
 }
 

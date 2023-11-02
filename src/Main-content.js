@@ -1,11 +1,9 @@
 import React, {Component, useState} from 'react';
 import Carousel from 'react-bootstrap/Carousel';
-import './Caroucel.css'
 import image1 from './사진/3820145201700009k_Skyscraper.jpg';
 import image2 from './사진/3820147201900031k_Passionate Night in Busan.jpg';
 import image3 from './사진/3820147201900026k_Amazing View in Seorak.jpg';
 import image4 from './사진/3820147201900026k_Amazing View in Seorak.jpg';
-import IsExpanded from './App'
 
 function Maincontents() {
     return (
@@ -35,4 +33,13 @@ function Maincontents() {
     )
 }
 
+class maincontents extends Component {
+    render() {
+        return (
+            <div>
+                <Maincontents />
+            </div>
+        )
+    }
+}
 export default Maincontents
