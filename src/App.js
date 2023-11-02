@@ -1,14 +1,9 @@
 // App.js
 import React, {Component, useEffect, useState} from 'react';
 import 'bootstrap/dist/css/bootstrap.css'
-
 import './App.css'
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
-import Mycomponent from './Navbar'
 import HeadBar from "./Navbar";
 import Maincontents from "./Main-content";
-import axios from 'axios';
 import {QueryClient, QueryClientProvider, useQuery} from 'react-query';
 
 
