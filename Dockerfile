@@ -7,6 +7,7 @@ COPY package.json .
 COPY package-lock.json . 
 RUN npm install .
 RUN npm install react-bootstrap
+RUN npm install @types/i18next --save-dev
 
 # Copies everything over to Docker environment
 COPY . .
