@@ -8,6 +8,12 @@
     "languageChoice": "언어선택",
     "ko": "한국어",
     "eng": "영어",
-    "jpn": "일본어"
+    "jpn": "일본어",
+    "standard": "검색기준",
+    "searchbtn": "검색",
+    "Accuracy": "정확도순",
+    "date": "날짜순",
+    "moveblog": "블로그로 이동"
+
   }
 }

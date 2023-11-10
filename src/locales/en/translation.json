@@ -8,6 +8,12 @@
     "languageChoice": "Languages",
     "ko": "ko",
     "eng": "Eng",
-    "jpn": "Jpn"
+    "jpn": "Jpn",
+    "standard": "search standards",
+    "searchbtn": "Search",
+    "Accuracy": "Accuracy",
+    "date": "Date",
+    "moveblog": "Open Blog"
+
   }
 }
