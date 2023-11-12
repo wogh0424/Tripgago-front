@@ -43,7 +43,7 @@ function SearchBar({ value, onChangeValue, onSearch, handleSubmit, dropdownValue
                         onChange={(e) => onChangeValue(e.target.value)}
                     />
                 </InputGroup>
-                <Button variant="info" className="m-4" onClick={onSearch}>검색</Button>
+                <Button variant="info" className="m-4" onClick={onSearch}>{t('header.searchbtn')}</Button>
             </form>
     );
 }
